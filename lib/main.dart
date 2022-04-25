@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:modul7_homework/dictionary/all_artist.dart';
 
-import 'package:modul7_homework/fetch_file.dart';
-
+import 'package:modul7_homework/pages/artist_list_widget.dart';
 import 'package:modul7_homework/pages/home_page.dart';
-import 'package:modul7_homework/pages/home_work_m7.dart';
-import 'package:modul7_homework/pages/home_work_mod8.dart';
 
 void main() {
-  runApp(_MyApp());
+  runApp(const _MyApp());
 }
 
 class _MyApp extends StatelessWidget {
-  _MyApp({Key? key}) : super(key: key);
+  const _MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,22 +32,16 @@ GoRouter _router = GoRouter(
           MaterialPage(child: const HomePageWidget(), key: state.pageKey),
       routes: [
         GoRoute(
-          path: 'm7Page',
+          path: 'artistsPage',
           name: 'artistsPage',
-          builder: (BuildContext context, GoRouterState state) {
-            final rowData =
-                fetchFileFromAssetsToListArtist('assets/artists.json');
-            final artists = rowData;
-            return Modul7HomeWorkWidget(
-              artists: artists,
+          pageBuilder: (context, state) {
+            // final artists = Artists.da;
+            return MaterialPage(
+              key: state.pageKey,
+              child: ArtistsListWidget(list: Artists.rowData),
             );
           },
         ),
-        GoRoute(
-          path: 'm8Page',
-          name: 'mod8hp',
-          builder: (context, state) => Modul8HomeWorkWidget(),
-        )
       ],
     ),
   ],
